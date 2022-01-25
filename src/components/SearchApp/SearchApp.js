@@ -22,7 +22,7 @@ export default class App extends Component {
     onSubmit = () => {
         const { query, id } = this.state;
 
-        fetch(`${serverURL}/image/${id}/${query}`)
+        fetch(`${serverURL}/image/${query}`)
             .then((res) => res.json())
             .then((images) => {
                 this.setState({ images: images });
