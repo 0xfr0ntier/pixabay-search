@@ -31,8 +31,10 @@ npm start
 ## Todo list
 
  - [x] Search functionality.
- - [x] Auth routes.
- - [ ] Linking to backend repo.
+ - [x] Auth, and SearchApp routes.
+ - [ ] Auth functionality.
+ - [ ] Adding profile route.
+
 
 
 ### License
