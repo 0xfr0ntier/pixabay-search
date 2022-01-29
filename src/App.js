@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // Auth components
@@ -87,61 +87,41 @@ const particlesOptions = {
     detectRetina: true,
 };
 
-class App extends Component {
-    constructor() {
-        super();
+const App = () => {
+    const [signedIn, setSignedIn] = useState(false);
 
-        this.state = {
-            signedIn: false,
-        };
-    }
+    return (
+        <Router>
+            <div className="App">
+                <Particles
+                    className="particles"
+                    id="tsparticles"
+                    options={particlesOptions}
+                />
+                <Navigation
+                    onSignOut={() => setSignedIn(false)}
+                    signedIn={signedIn}
+                />
+                <Logo signedIn={signedIn} />
 
-    signOut = () => {
-        this.setState({ signedIn: false });
-    };
+                <Routes>
+                    <Route path="/" element={<Home />} />
 
-    signIn = () => {
-        this.setState({ signedIn: true });
-    };
+                    <Route path="/app" element={<SearchApp />} />
 
-    signUp = () => {
-        this.setState({ signedIn: true });
-    };
-
-    render() {
-        return (
-            <Router>
-                <div className="App">
-                    <Particles
-                        className="particles"
-                        id="tsparticles"
-                        options={particlesOptions}
+                    <Route
+                        path="/signin"
+                        element={<Signin signIn={() => setSignedIn(true)} />}
                     />
-                    <Navigation
-                        onSignOut={this.signOut}
-                        signedIn={this.state.signedIn}
+
+                    <Route
+                        path="/register"
+                        element={<Register signUp={() => setSignedIn(true)} />}
                     />
-                    <Logo signedIn={this.state.signedIn} />
-
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-
-                        <Route path="/app" element={<SearchApp />} />
-
-                        <Route
-                            path="/signin"
-                            element={<Signin signIn={this.signIn} />}
-                        />
-
-                        <Route
-                            path="/register"
-                            element={<Register signUp={this.signUp} />}
-                        />
-                    </Routes>
-                </div>
-            </Router>
-        );
-    }
-}
+                </Routes>
+            </div>
+        </Router>
+    );
+};
 
 export default App;

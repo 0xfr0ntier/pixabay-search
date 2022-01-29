@@ -8,7 +8,10 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
             <p className="f3 tc pb3">{"High quality Images search!"}</p>
 
             {/* Form */}
-            <div className="form pa4 br3 shadow-5 flex flex-row" style={{ minWidth: "600px" }}>
+            <div
+                className="form pa4 br3 shadow-5 flex flex-row"
+                style={{ minWidth: "600px" }}
+            >
                 <input
                     className="w-70 pr2 f4"
                     type="tex"

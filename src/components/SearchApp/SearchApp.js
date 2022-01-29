@@ -1,47 +1,39 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import ImageLinkForm from "./ImageLinkForm";
 import Gallery from "./Gallery";
 
-const serverURL = "SERVER URL";
+const serverURL = "http://127.0.0.1:5000";
 
-export default class App extends Component {
-    constructor() {
-        super();
+const SearchApp = () => {
+    const [id, setId] = useState(123);
+    const [query, setQuery] = useState("");
+    const [images, setImages] = useState([]);
 
-        this.state = {
-            id: 0,
-            query: "",
-            images: [],
-        };
-    }
-
-    onInputChange = (event) => {
-        this.setState({ query: event.target.value });
+    const inputChange = (event) => {
+        setQuery(event.target.value);
     };
 
-    onSubmit = () => {
-        const { query, id } = this.state;
-
+    const onSubmit = () => {
         fetch(`${serverURL}/image/${id}/${query}`)
             .then((res) => res.json())
             .then((images) => {
-                this.setState({ images: images });
+                setImages(images);
             })
             .catch((error) => console.log(error));
     };
 
-    render() {
-        return (
-            <>
-                <div className="flex flex-row justify-center">
-                    <ImageLinkForm
-                        onButtonSubmit={this.onSubmit}
-                        onInputChange={this.onInputChange}
-                        onSubmit
-                    />
-                </div>
-                <Gallery images={this.state.images} />
-            </>
-        );
-    }
-}
+    return (
+        <>
+            <div className="flex flex-row justify-center">
+                <ImageLinkForm
+                    onButtonSubmit={onSubmit}
+                    onInputChange={inputChange}
+                    onSubmit
+                />
+            </div>
+            <Gallery images={images} />
+        </>
+    );
+};
+
+export default SearchApp;
